@@ -1,6 +1,6 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client")
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 async function seedDatabase() {
   try {
@@ -26,7 +26,7 @@ async function seedDatabase() {
       "https://utfs.io/f/9f0847c2-d0b8-4738-a673-34ac2b9506ec-17r.png",
       "https://utfs.io/f/07842cfb-7b30-4fdc-accc-719618dfa1f2-17s.png",
       "https://utfs.io/f/0522fdaf-0357-4213-8f52-1d83c3dcb6cd-18e.png",
-    ];
+    ]
 
     const creativeNames = [
       "Barbearia Vintage",
@@ -39,7 +39,7 @@ async function seedDatabase() {
       "Aparência Impecável",
       "Estilo Urbano",
       "Estilo Clássico",
-    ];
+    ]
 
     const addresses = [
       "Rua da Barbearia, 123",
@@ -52,7 +52,7 @@ async function seedDatabase() {
       "Praça da Aparência, 505",
       "Rua Urbana, 606",
       "Avenida Clássica, 707",
-    ];
+    ]
 
     const services = [
       {
@@ -91,18 +91,18 @@ async function seedDatabase() {
         price: 25.0,
         imageUrl: "Fios hidratados, macios e brilhantes.",
       },
-    ];
+    ]
 
-    const barbershops = [];
+    const barbershops = []
 
     for (let i = 0; i < creativeNames.length; i++) {
-      const name = creativeNames[i];
-      const address = addresses[i] || "";
-      const imageUrl = images[i] || "";
+      const name = creativeNames[i]
+      const address = addresses[i] || ""
+      const imageUrl = images[i] || ""
 
       const barbershop = await prisma.barbershop.create({
         data: { name, address, imageUrl },
-      });
+      })
 
       for (const service of services) {
         await prisma.service.create({
@@ -114,16 +114,16 @@ async function seedDatabase() {
               connect: { id: barbershop.id },
             },
           },
-        });
+        })
       }
 
-      barbershops.push(barbershop);
+      barbershops.push(barbershop)
     }
 
-    await prisma.$disconnect();
+    await prisma.$disconnect()
   } catch (error) {
     console.error("Erro ao executar o seed =>", error)
   }
 }
 
-seedDatabase();
+seedDatabase()

@@ -1,3 +1,133 @@
 {
-  "extends": "next/core-web-vitals"
+  "rules": {
+    "indent": "off",
+    "camelcase": "off",
+    "no-console": "off",
+    "import/order": "off",
+    "no-empty-function": "off",
+    "no-use-before-define": "off",
+    "class-methods-use-this": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "no-useless-constructor": "off",
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "import/prefer-default-export": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "linebreak-style": [
+      "error",
+      "unix"
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "consistent": true,
+        "multiline": true,
+        "minProperties": 15
+      }
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 90,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreComments": true,
+        "ignorePattern": "(import.+from.+|<.+className=[{'\"].+['\"}].+)"
+      }
+    ],
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "groups": [
+          [
+            "/^react/",
+            "/^next/"
+          ],
+          "module",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ],
+          [
+            "/style/",
+            "/css/"
+          ],
+          "/^@//"
+        ],
+        "newlinesBetween": "never",
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-double"
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:tailwindcss/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "overrides": [],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "tsx": true
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers"
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
 }
