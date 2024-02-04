@@ -1,3 +1,7 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { PrismaClient } = require("@prisma/client")
 
 const prisma = new PrismaClient()
@@ -110,6 +114,7 @@ async function seedDatabase() {
             name: service.name,
             description: service.description,
             price: service.price,
+            imageUrl: service.imageUrl,
             barbershop: {
               connect: { id: barbershop.id },
             },
