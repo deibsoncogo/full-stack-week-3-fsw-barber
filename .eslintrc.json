@@ -3,6 +3,7 @@
     "no-var": "off",
     "vars-on-top": "off",
     "arrow-body-style": "off",
+    "react/self-closing-comp": "off",
     "react/function-component-definition": "off",
     "indent": "off",
     "camelcase": "off",
