@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { Badge } from "./ui/badge"
 import { Card, CardContent } from "./ui/card"
 
-function BookingItem() {
+const BookingItem = () => {
   return (
     <Card>
       <CardContent className="flex justify-between p-5 py-0">

@@ -3,7 +3,7 @@ import { MenuIcon } from "lucide-react"
 import { Button } from "./ui/button"
 import { Card, CardContent } from "./ui/card"
 
-function Header() {
+const Header = () => {
   return (
     <Card>
       <CardContent className="flex flex-row items-center justify-between p-5">
