@@ -8,7 +8,7 @@ import BarberShopItem from "./_components/barbershop-item"
 import Search from "./_components/search"
 
 export default async function Home() {
-  const barbershops: Barbershop[] = await db.barbershop.findMany()
+  const barbershops = await db.barbershop.findMany()
 
   return (
     <div>
@@ -40,7 +40,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {barbershops.map((barbershop: Barbershop) => (
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
@@ -52,7 +52,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {barbershops.map((barbershop: Barbershop) => (
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
