@@ -35,6 +35,7 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
         {barbershop.services.map((service: Service) => (
           <ServiceItem
             key={service.id}
+            barbershop={barbershop}
             service={service}
             isAuthenticated={!!session?.user}
           />
