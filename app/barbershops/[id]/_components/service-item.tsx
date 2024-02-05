@@ -94,6 +94,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                         nav_button_previous: { width: "32px", height: "32px" },
                         nav_button_next: { width: "32px", height: "32px" },
                         caption: { textTransform: "capitalize" },
+                        month: { width: "100%" },
                       }}
                     />
                   </div>
@@ -152,7 +153,12 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                   </div>
 
                   <SheetFooter className="px-5">
-                    <Button disabled={!date || !hour}>Confirmar reserva</Button>
+                    <Button
+                      disabled={!date || !hour}
+                      className="flex w-full"
+                    >
+                      Confirmar reserva
+                    </Button>
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
