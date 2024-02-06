@@ -1,11 +1,16 @@
 "use client"
 
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import Image from "next/image"
-import { useMemo, useState } from "react"
-import { Barbershop, Service } from "@prisma/client"
-import { format } from "date-fns"
+import { useRouter } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
+import { Barbershop, Booking, Service } from "@prisma/client"
+import { format, setHours, setMinutes } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import { Loader2 } from "lucide-react"
+import { toast } from "sonner"
+import { getDayBookings } from "../_actions/get-bookings"
+import { saveBooking } from "../_actions/save-booking"
 import { generateDayTimeList } from "../_helpers/hours"
 import { Button } from "@/app/_components/ui/button"
 import { Calendar } from "@/app/_components/ui/calendar"
@@ -19,12 +24,79 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps) => {
+  const { data } = useSession()
+
+  const router = useRouter()
   const [date, setDate] = useState<Date | undefined>(undefined)
   const [hour, setHour] = useState<string | undefined>()
+  const [submitIsLoading, setSubmitIsLoading] = useState(false)
+  const [sheetIsOpen, setSheetIsOpen] = useState(false)
+  const [dayBookings, setDayBookings] = useState<Booking[]>([])
 
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : []
-  }, [date])
+    if (!date) {
+      return []
+    }
+
+    return generateDayTimeList(date).filter((time) => {
+      const timeHour = Number(time.split(":")[0])
+      const timeMinutes = Number(time.split(":")[1])
+
+      const booking = dayBookings.find((bookingFind) => {
+        const bookingHour = bookingFind.date.getHours()
+        const bookingMinutes = bookingFind.date.getMinutes()
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes
+      })
+
+      if (!booking) {
+        return true
+      }
+
+      return false
+    })
+  }, [date, dayBookings])
+
+  const handleBookingSubmit = async () => {
+    setSubmitIsLoading(true)
+
+    try {
+      if (!date || !hour || !data?.user) {
+        return
+      }
+
+      const dateHour = Number(hour.split(":")[0])
+      const dateMinutes = Number(hour.split(":")[1])
+
+      const newDate = setMinutes(setHours(date, dateHour), dateMinutes).toISOString()
+
+      await saveBooking({
+        serviceId: service.id,
+        barbershopId: barbershop.id,
+        date: newDate,
+        userId: (data.user as any).id,
+      })
+
+      setSheetIsOpen(false)
+
+      setDate(undefined)
+      setHour(undefined)
+
+      toast("Reserva realizada com sucesso!", {
+        description: format(newDate, "'Para' dd 'de' MMMM 'às' HH':'mm", {
+          locale: ptBR,
+        }),
+        action: {
+          label: "Visualizar",
+          onClick: () => router.push("/bookings"),
+        },
+      })
+    } catch (error) {
+      console.error("Error =>", error)
+    } finally {
+      setSubmitIsLoading(false)
+    }
+  }
 
   const handleBookingClick = () => {
     if (!isAuthenticated) {
@@ -42,6 +114,19 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
   const handleHourClick = (time: string) => {
     setHour(time)
   }
+
+  useEffect(() => {
+    if (!date) {
+      return
+    }
+
+    const refreshAvailableHours = async () => {
+      const _dayBookings = await getDayBookings(barbershop.id, date)
+      setDayBookings(_dayBookings)
+    }
+
+    refreshAvailableHours()
+  }, [date, barbershop.id])
 
   return (
     <Card>
@@ -68,7 +153,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                 }).format(Number(service.price))}
               </p>
 
-              <Sheet>
+              <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button variant="secondary" onClick={handleBookingClick}>
                     Reservar
@@ -154,9 +239,11 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
 
                   <SheetFooter className="px-5">
                     <Button
-                      disabled={!date || !hour}
+                      disabled={!date || !hour || submitIsLoading}
+                      onClick={handleBookingSubmit}
                       className="flex w-full"
                     >
+                      {submitIsLoading && (<Loader2 className="mr-2 size-4 animate-spin" />)}
                       Confirmar reserva
                     </Button>
                   </SheetFooter>
