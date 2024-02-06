@@ -45,7 +45,6 @@ model Service {
 model Booking {
   id           String   @id @default(uuid())
   date         DateTime
-  status       String
   userId       String
   barbershopId String
   serviceId    String
