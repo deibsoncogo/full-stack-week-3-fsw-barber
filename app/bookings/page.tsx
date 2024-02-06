@@ -3,8 +3,8 @@ import { redirect } from "next/navigation"
 import { Booking } from "@prisma/client"
 import BookingItem from "../_components/booking-item"
 import Header from "../_components/header"
+import { authOptions } from "../_lib/auth"
 import { db } from "../_lib/prisma"
-import { authOptions } from "../api/auth/[...nextauth]/route"
 
 const BookingsPage = async () => {
   const session = await getServerSession(authOptions)
