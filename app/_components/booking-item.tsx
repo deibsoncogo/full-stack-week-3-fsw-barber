@@ -151,7 +151,10 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                     onClick={handleCancelClick}
                     className="w-full"
                   >
-                    {isDeleteLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
+                    {isDeleteLoading && (
+                      <Loader2 className="mr-2 size-4 animate-spin" />
+                    )}
+
                     Confirmar
                   </AlertDialogAction>
                 </AlertDialogFooter>

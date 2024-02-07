@@ -36,7 +36,7 @@ const SideMenu = () => {
           </div>
 
           <Button variant="secondary" size="icon">
-            <LogOutIcon onClick={handleLogoutClick} />
+            <LogOutIcon size={18} onClick={handleLogoutClick} />
           </Button>
         </div>
       ) : (
@@ -47,7 +47,7 @@ const SideMenu = () => {
           </div>
 
           <Button onClick={handleLoginClick} variant="secondary" className="w-full justify-start">
-            <LogInIcon className="mr-2" size={18} />
+            <LogInIcon size={18} className="mr-2" />
             Fazer Login
           </Button>
         </div>
