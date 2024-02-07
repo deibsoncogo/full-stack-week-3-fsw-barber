@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Barbershop } from "@prisma/client"
-import { StarIcon } from "lucide-react"
+import { ScissorsIcon } from "lucide-react"
 import { Badge } from "@/app/_components/ui/badge"
 import { Button } from "@/app/_components/ui/button"
 import { Card, CardContent } from "@/app/_components/ui/card"
@@ -25,8 +25,8 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
         <div className="relative h-[159px] w-full">
           <div className="absolute left-2 top-2 z-50">
             <Badge variant="secondary" className="left-3 top-3 flex items-center gap-1 opacity-90">
-              <StarIcon size={12} className="fill-primary text-primary" />
-              <span className="text-xs">5,0</span>
+              <ScissorsIcon size={12} className="fill-primary text-primary" />
+              <span className="text-xs">{barbershop.services.length}</span>
             </Badge>
           </div>
 

@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { Barbershop } from "@prisma/client"
-import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
+import { ChevronLeftIcon, MapPinIcon, MenuIcon, ScissorsIcon } from "lucide-react"
 import SideMenu from "@/app/_components/side-menu"
 import { Button } from "@/app/_components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/app/_components/ui/sheet"
@@ -14,6 +14,8 @@ interface BarbershopInfoProps {
 
 const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
   const router = useRouter()
+
+  const amountServices = barbershop.services.length
 
   const handleBackClick = () => {
     router.replace("/")
@@ -56,8 +58,11 @@ const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
         </div>
 
         <div className="mt-2 flex items-center gap-1">
-          <StarIcon size={18} className="text-primary" />
-          <p className="text-sm">5.0 (899 avaliações)</p>
+          <ScissorsIcon size={18} className="text-primary" />
+
+          <p className="text-sm">
+            {amountServices} serviço{amountServices > 1 ? "s" : ""} cadastrado
+          </p>
         </div>
       </div>
 

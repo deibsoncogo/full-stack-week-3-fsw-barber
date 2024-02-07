@@ -15,6 +15,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
   const [barbershops] = await Promise.all([
     db.barbershop.findMany({
       where: { name: { contains: searchParams.search, mode: "insensitive" } },
+      include: { services: true },
     }),
   ]) as [Barbershop[]]
 
