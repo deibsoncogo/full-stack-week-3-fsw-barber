@@ -3,7 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon, UserIcon } from "lucide-react"
-import { Avatar, AvatarImage } from "./ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { Button } from "./ui/button"
 import { SheetHeader, SheetTitle } from "./ui/sheet"
 
@@ -29,9 +29,10 @@ const SideMenu = () => {
           <div className="flex items-center gap-3">
             <Avatar>
               <AvatarImage src={data.user?.image ?? ""} />
+              <AvatarFallback>{data.user?.name ? data.user?.name[0] : ""}</AvatarFallback>
             </Avatar>
 
-            <h2 className="font-bold">{data.user.name}</h2>
+            <h2 className="font-bold">{data.user?.name}</h2>
           </div>
 
           <Button variant="secondary" size="icon">
@@ -45,7 +46,7 @@ const SideMenu = () => {
             <h2 className="font-bold">Olá, faça seu login!</h2>
           </div>
 
-          <Button variant="secondary" className="w-full justify-start" onClick={handleLoginClick}>
+          <Button onClick={handleLoginClick} variant="secondary" className="w-full justify-start">
             <LogInIcon className="mr-2" size={18} />
             Fazer Login
           </Button>
@@ -53,7 +54,7 @@ const SideMenu = () => {
       )}
 
       <div className="flex flex-col gap-3 px-5">
-        <Button variant="outline" className="justify-start" asChild>
+        <Button asChild variant="outline" className="justify-start">
           <Link href="/">
             <HomeIcon size={18} className="mr-2" />
             Início
@@ -61,7 +62,7 @@ const SideMenu = () => {
         </Button>
 
         {data?.user && (
-          <Button variant="outline" className="justify-start" asChild>
+          <Button asChild variant="outline" className="justify-start">
             <Link href="/bookings">
               <CalendarIcon size={18} className="mr-2" />
               Agendamentos

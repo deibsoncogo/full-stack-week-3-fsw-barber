@@ -2,28 +2,19 @@ import { redirect } from "next/navigation"
 import { Barbershop } from "@prisma/client"
 import Header from "../_components/header"
 import { db } from "../_lib/prisma"
-import BarberShopItem from "../(home)/_components/barbershop-item"
+import BarbershopItem from "../(home)/_components/barbershop-item"
 import Search from "../(home)/_components/search"
 
-interface BarbershopPageProps {
-  searchParams: {
-    search?: string
-  }
+interface BarbershopsPageProps {
+  searchParams: { search?: string }
 }
 
-const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
-  if (!searchParams.search) {
-    redirect("/")
-  }
+const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
+  if (!searchParams.search) { return redirect("/") }
 
   const [barbershops] = await Promise.all([
     db.barbershop.findMany({
-      where: {
-        name: {
-          contains: searchParams.search,
-          mode: "insensitive",
-        },
-      },
+      where: { name: { contains: searchParams.search, mode: "insensitive" } },
     }),
   ]) as [Barbershop[]]
 
@@ -40,8 +31,8 @@ const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
 
         <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
-            <div key={`${barbershop.id}Div`} className="w-full">
-              <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+            <div key={barbershop.id} className="w-full">
+              <BarbershopItem barbershop={barbershop} />
             </div>
           ))}
         </div>
@@ -50,4 +41,4 @@ const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
   )
 }
 
-export default BarbershopPage
+export default BarbershopsPage

@@ -9,9 +9,7 @@ import { db } from "../_lib/prisma"
 const BookingsPage = async () => {
   const session = await getServerSession(authOptions)
 
-  if (!session?.user) {
-    return redirect("/")
-  }
+  if (!session?.user) { return redirect("/") }
 
   const [confirmedBookings, finishedBookings] = await Promise.all([
     db.booking.findMany({
@@ -35,7 +33,9 @@ const BookingsPage = async () => {
 
         {confirmedBookings.length > 0 && (
           <>
-            <h2 className="mb-3 text-sm font-bold uppercase text-gray-400">Confirmados</h2>
+            <h2 className="mb-3 text-sm font-bold uppercase text-gray-400">
+              Confirmados
+            </h2>
 
             <div className="flex flex-col gap-3">
               {confirmedBookings.map((booking) => (
@@ -47,7 +47,9 @@ const BookingsPage = async () => {
 
         {finishedBookings.length > 0 && (
           <>
-            <h2 className="mb-3 mt-6 text-sm font-bold uppercase text-gray-400">Finalizados</h2>
+            <h2 className="mb-3 mt-6 text-sm font-bold uppercase text-gray-400">
+              Finalizados
+            </h2>
 
             <div className="flex flex-col gap-3">
               {finishedBookings.map((booking) => (

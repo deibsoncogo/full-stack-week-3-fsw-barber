@@ -14,9 +14,8 @@ interface SearchProps {
 }
 
 const formSchema = z.object({
-  search: z.string({
-    required_error: "Campo obrigatório",
-  }).trim().min(1, "Campo obrigatório"),
+  search: z.string({ required_error: "Campo obrigatório" })
+    .trim().min(1, "Campo obrigatório"),
 })
 
 const Search = ({ defaultValues }: SearchProps) => {
@@ -49,7 +48,7 @@ const Search = ({ defaultValues }: SearchProps) => {
             )}
           />
 
-          <Button variant="default" type="submit">
+          <Button type="submit" variant="default">
             <SearchIcon size={20} />
           </Button>
         </form>

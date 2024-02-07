@@ -34,9 +34,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
 
   const timeList = useMemo(() => {
-    if (!date) {
-      return []
-    }
+    if (!date) { return [] }
 
     return generateDayTimeList(date).filter((time) => {
       const timeHour = Number(time.split(":")[0])
@@ -49,9 +47,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
         return bookingHour === timeHour && bookingMinutes === timeMinutes
       })
 
-      if (!booking) {
-        return true
-      }
+      if (!booking) { return true }
 
       return false
     })
@@ -61,9 +57,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
     setSubmitIsLoading(true)
 
     try {
-      if (!date || !hour || !data?.user) {
-        return
-      }
+      if (!date || !hour || !data?.user) { return }
 
       const dateHour = Number(hour.split(":")[0])
       const dateMinutes = Number(hour.split(":")[1])
@@ -99,9 +93,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
   }
 
   const handleBookingClick = () => {
-    if (!isAuthenticated) {
-      return signIn("google")
-    }
+    if (!isAuthenticated) { return signIn("google") }
 
     return null
   }
@@ -116,9 +108,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
   }
 
   useEffect(() => {
-    if (!date) {
-      return
-    }
+    if (!date) { return }
 
     const refreshAvailableHours = async () => {
       const _dayBookings = await getDayBookings(barbershop.id, date)
@@ -148,14 +138,13 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
 
             <div className="mt-3 flex items-center justify-between">
               <p className="text-sm font-bold text-primary">
-                {Intl.NumberFormat("pt-BR", {
-                  style: "currency", currency: "BRL",
-                }).format(Number(service.price))}
+                {Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
+                  .format(Number(service.price))}
               </p>
 
               <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="secondary" onClick={handleBookingClick}>
+                  <Button onClick={handleBookingClick} variant="secondary">
                     Reservar
                   </Button>
                 </SheetTrigger>
@@ -189,8 +178,8 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                       {timeList.map((time) => (
                         <Button
                           key={time}
-                          variant={hour === time ? "default" : "outline"}
                           onClick={() => handleHourClick(time)}
+                          variant={hour === time ? "default" : "outline"}
                           className="rounded-full"
                         >
                           {time}
@@ -206,9 +195,8 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                           <h2 className="font-bold">{service.name}</h2>
 
                           <h3 className="text-sm font-bold">
-                            {Intl.NumberFormat("pt-BR", {
-                              style: "currency", currency: "BRL",
-                            }).format(Number(service.price))}
+                            {Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
+                              .format(Number(service.price))}
                           </h3>
                         </div>
 
@@ -243,7 +231,10 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                       onClick={handleBookingSubmit}
                       className="flex w-full"
                     >
-                      {submitIsLoading && (<Loader2 className="mr-2 size-4 animate-spin" />)}
+                      {submitIsLoading && (
+                        <Loader2 className="mr-2 size-4 animate-spin" />
+                      )}
+
                       Confirmar reserva
                     </Button>
                   </SheetFooter>

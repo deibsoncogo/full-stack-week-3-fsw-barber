@@ -2,6 +2,7 @@
   "rules": {
     "no-var": "off",
     "vars-on-top": "off",
+    "global-require": "off",
     "arrow-body-style": "off",
     "no-param-reassign": "off",
     "react/prop-types": "off",
