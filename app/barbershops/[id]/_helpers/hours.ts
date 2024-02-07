@@ -1,4 +1,5 @@
 import { addMinutes, format, setHours, setMinutes } from "date-fns"
+import { ptBR } from "date-fns/locale"
 
 export function generateDayTimeList(date: Date): string[] {
   const startTime = setMinutes(setHours(date, 9), 0)
@@ -10,7 +11,7 @@ export function generateDayTimeList(date: Date): string[] {
   let currentTime = startTime
 
   while (currentTime <= endTime) {
-    timeList.push(format(currentTime, "HH:mm"))
+    timeList.push(format(currentTime, "HH:mm", { locale: ptBR }))
     currentTime = addMinutes(currentTime, interval)
   }
 

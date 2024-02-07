@@ -5,7 +5,7 @@ import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import { Barbershop, Booking, Service } from "@prisma/client"
-import { format, setHours, setMinutes } from "date-fns"
+import { addDays, format, setHours, setMinutes } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
@@ -171,7 +171,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                       selected={date}
                       onSelect={handleDateClick}
                       locale={ptBR}
-                      fromDate={new Date()}
+                      fromDate={addDays(new Date(), 1)}
                       styles={{
                         head_cell: { width: "100%", textTransform: "capitalize" },
                         cell: { width: "100%" },
