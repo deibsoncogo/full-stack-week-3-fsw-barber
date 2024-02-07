@@ -1,17 +1,11 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable react/jsx-no-constructed-context-values */
 import * as React from "react"
+import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from "react-hook-form"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { Slot } from "@radix-ui/react-slot"
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-} from "react-hook-form"
-
-import { cn } from "@/app/_lib/utils"
 import { Label } from "@/app/_components/ui/label"
+import { cn } from "@/app/_lib/utils"
 
 const Form = FormProvider
 
@@ -23,7 +17,7 @@ type FormFieldContextValue<
 }
 
 const FormFieldContext = React.createContext<FormFieldContextValue>(
-  {} as FormFieldContextValue
+  {} as FormFieldContextValue,
 )
 
 const FormField = <
@@ -67,7 +61,7 @@ type FormItemContextValue = {
 }
 
 const FormItemContext = React.createContext<FormItemContextValue>(
-  {} as FormItemContextValue
+  {} as FormItemContextValue,
 )
 
 const FormItem = React.forwardRef<
