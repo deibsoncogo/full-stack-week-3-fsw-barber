@@ -77,7 +77,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         </Card>
       </SheetTrigger>
 
-      <SheetContent className="px-0">
+      <SheetContent className="overflow-y-auto px-0 [&::-webkit-scrollbar]:hidden">
         <SheetHeader className="border-b border-solid border-secondary px-5 pb-6 text-left">
           <SheetTitle>Informações da Reserva</SheetTitle>
         </SheetHeader>
@@ -88,7 +88,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
             <div className="absolute bottom-4 left-0 w-full px-5">
               <Card>
-                <CardContent className="flex gap-2 p-3">
+                <CardContent className="flex items-center gap-2 p-3">
                   <Avatar>
                     <AvatarImage src={booking.barbershop.imageUrl} />
                     <AvatarFallback>{booking.barbershop.name[0]}</AvatarFallback>
@@ -96,10 +96,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
                   <div>
                     <h2 className="font-bold">{booking.barbershop.name}</h2>
-
-                    <h3 className="overflow-hidden text-ellipsis text-nowrap text-xs">
-                      {booking.barbershop.address}
-                    </h3>
+                    <h3 className="text-xs">{booking.barbershop.address}</h3>
                   </div>
                 </CardContent>
               </Card>

@@ -45,15 +45,21 @@ const SideMenu = () => {
             <UserIcon size={32} />
             <h2 className="font-bold">Olá, faça seu login!</h2>
           </div>
-
-          <Button onClick={handleLoginClick} variant="secondary" className="w-full justify-start">
-            <LogInIcon size={18} className="mr-2" />
-            Fazer Login
-          </Button>
         </div>
       )}
 
       <div className="flex flex-col gap-3 px-5">
+        {!data?.user && (
+          <Button
+            onClick={handleLoginClick}
+            variant="secondary"
+            className="w-full justify-start"
+          >
+            <LogInIcon size={18} className="mr-2" />
+            Fazer Login
+          </Button>
+        )}
+
         <Button asChild variant="outline" className="justify-start">
           <Link href="/">
             <HomeIcon size={18} className="mr-2" />

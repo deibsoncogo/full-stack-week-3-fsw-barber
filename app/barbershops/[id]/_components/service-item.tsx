@@ -93,9 +93,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
   }
 
   const handleBookingClick = () => {
-    if (!isAuthenticated) { return signIn("google") }
-
-    return null
+    if (!isAuthenticated) { signIn("google") }
   }
 
   const handleDateClick = (dateClick: Date | undefined) => {
@@ -142,14 +140,14 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                   .format(Number(service.price))}
               </p>
 
-              <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
+              <Sheet open={sheetIsOpen && isAuthenticated} onOpenChange={setSheetIsOpen}>
                 <SheetTrigger asChild>
                   <Button onClick={handleBookingClick} variant="secondary">
                     Reservar
                   </Button>
                 </SheetTrigger>
 
-                <SheetContent className="p-0">
+                <SheetContent className="overflow-y-auto p-0 [&::-webkit-scrollbar]:hidden">
                   <SheetHeader className="border-b border-solid border-secondary px-5 py-6 text-left">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
@@ -225,7 +223,7 @@ const ServiceItem = ({ barbershop, service, isAuthenticated }: ServiceItemProps)
                     </Card>
                   </div>
 
-                  <SheetFooter className="px-5">
+                  <SheetFooter className="p-5 pt-0">
                     <Button
                       disabled={!date || !hour || submitIsLoading}
                       onClick={handleBookingSubmit}
