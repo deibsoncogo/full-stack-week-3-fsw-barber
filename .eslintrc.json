@@ -4,6 +4,7 @@
     "vars-on-top": "off",
     "arrow-body-style": "off",
     "no-param-reassign": "off",
+    "react/prop-types": "off",
     "no-underscore-dangle": "off",
     "react/self-closing-comp": "off",
     "react/jsx-props-no-spreading": "off",
